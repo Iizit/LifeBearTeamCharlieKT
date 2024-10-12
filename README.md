@@ -48,8 +48,7 @@ Use code with caution.
 
 # Validating Emails
 
-'''
-email_regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+'''email_regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
 invalid_emails_df = pd.DataFrame(columns=df.columns)
 
 for index, row in df.iterrows():
@@ -61,8 +60,7 @@ for index, row in df.iterrows():
 
 # Processing Created_at Column
 
-'''
-df['created_at'] = pd.to_datetime(df['created_at'], errors='coerce')
+'''df['created_at'] = pd.to_datetime(df['created_at'], errors='coerce')
 df['created_at'] = df['created_at'].dt.strftime('%A, %B %d, %Y %I:%M %p')
 '''
 
