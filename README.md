@@ -33,7 +33,8 @@ Output
 valid_data.csv: Contains the cleaned and processed user data.
 dump.csv: Contains invalid email addresses extracted from the original data.
 Chunks directory (if not already existing): Stores temporary CSV files for analysis. These can be deleted after processing is complete.
-Code Snippets
+
+# Code Snippets
 
 # Reading CSV and Removing Duplicates
 
@@ -56,7 +57,6 @@ for index, row in df.iterrows():
     if not re.match(email_regex, str(email)):
         invalid_emails_df = pd.concat([invalid_emails_df, pd.DataFrame([row])], ignore_index=True)
         df.drop(index, inplace=True)
-Use code with caution.
 '''
 
 # Processing Created_at Column
@@ -64,7 +64,6 @@ Use code with caution.
 '''
 df['created_at'] = pd.to_datetime(df['created_at'], errors='coerce')
 df['created_at'] = df['created_at'].dt.strftime('%A, %B %d, %Y %I:%M %p')
-Use code with caution.
 '''
 
 # Chunking and Analysis
@@ -81,7 +80,6 @@ for i in range(7):
     print("...")
     print(chunk.tail(5))  # Print last 5 rows
     print("-" * 20)
-Use code with caution.
 '''
 
 # Exporting Results
@@ -92,7 +90,6 @@ chunks.to_csv(f'/content/Chunks/chunk_{i+1}.csv', index=False)
 merged_df.to_csv('/content/valid_data.csv', index=False)
 
 print("Merged data exported to 'valid_data.csv'")
-Use code with caution.
 '''
 
 # Additional Notes
