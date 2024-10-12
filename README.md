@@ -84,13 +84,11 @@ for i in range(7):
 
 # Exporting Results
 
-'''
-invalid_emails_df.to_csv('/content/dump.csv', index=False)
+'''invalid_emails_df.to_csv('/content/dump.csv', index=False)
 chunks.to_csv(f'/content/Chunks/chunk_{i+1}.csv', index=False)
 merged_df.to_csv('/content/valid_data.csv', index=False)
 
 print("Merged data exported to 'valid_data.csv'")
-
 '''
 
 # Additional Notes
