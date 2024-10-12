@@ -3,9 +3,9 @@
 # LifeBearTeamCharlieKT
 [LifeBear Valid Data](https://cynatglobal.sharepoint.com/:x:/s/AIAnalyst/EWSky9WkKDdElkLuisg5nF0BaUy0jyFTF06VXfefuZ6OfA?e=ox1Vr8)
 
-Japan User Database Processing Script
+# Japan User Database Processing Script
 
-Introduction
+# Introduction/Overview
 
 This script processes a large dataset containing user information from [invalid URL removed]. It performs the following tasks:
 
@@ -22,7 +22,8 @@ Requirements
 
 Python 3.x
 pandas library
-Instructions
+
+# Instructions
 
 Install pandas: pip install pandas
 Download the CSV file (3.6M-Japan-lifebear.com-Largest-Notebook-App-UsersDB-csv-2019.csv) and place it in the same directory as this script.
@@ -34,18 +35,19 @@ dump.csv: Contains invalid email addresses extracted from the original data.
 Chunks directory (if not already existing): Stores temporary CSV files for analysis. These can be deleted after processing is complete.
 Code Snippets
 
-Reading CSV and Removing Duplicates
+# Reading CSV and Removing Duplicates
 
-Python
+'''
 import pandas as pd
 
 df = pd.read_csv('/content/3.6M-Japan-lifebear.com-Largest-Notebook-App-UsersDB-csv-2019.csv', sep=';', low_memory=True)
 df.drop_duplicates(subset=['mail_address', 'login_id'], keep='first', inplace=True)
 Use code with caution.
+'''
 
-Validating Emails
+# Validating Emails
 
-Python
+'''
 email_regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
 invalid_emails_df = pd.DataFrame(columns=df.columns)
 
@@ -55,18 +57,19 @@ for index, row in df.iterrows():
         invalid_emails_df = pd.concat([invalid_emails_df, pd.DataFrame([row])], ignore_index=True)
         df.drop(index, inplace=True)
 Use code with caution.
+'''
 
-Processing Created_at Column
+# Processing Created_at Column
 
-Python
+'''
 df['created_at'] = pd.to_datetime(df['created_at'], errors='coerce')
 df['created_at'] = df['created_at'].dt.strftime('%A, %B %d, %Y %I:%M %p')
 Use code with caution.
+'''
 
-Chunking and Analysis
+# Chunking and Analysis
 
-Python
-chunk_size = len(df) // 7
+'''chunk_size = len(df) // 7
 
 for i in range(7):
     start_index = i * chunk_size
@@ -79,18 +82,20 @@ for i in range(7):
     print(chunk.tail(5))  # Print last 5 rows
     print("-" * 20)
 Use code with caution.
+'''
 
-Exporting Results
+# Exporting Results
 
-Python
+'''
 invalid_emails_df.to_csv('/content/dump.csv', index=False)
 chunks.to_csv(f'/content/Chunks/chunk_{i+1}.csv', index=False)
 merged_df.to_csv('/content/valid_data.csv', index=False)
 
 print("Merged data exported to 'valid_data.csv'")
 Use code with caution.
+'''
 
-Additional Notes
+# Additional Notes
 
 The script uses regular expressions for email validation, which may not cover every edge case. You might want to consider a more sophisticated email validation library for stricter checks.
 Error handling can be added to the script to make it more robust.
